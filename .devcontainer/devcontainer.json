@@ -1,0 +1,24 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "options": [
+            "--build-arg",
+            "VERSION=0.0.2"
+        ]
+    },
+    "remoteUser": "user",
+    "runArgs": [
+        "--network=host"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "actboy168.tasks",
+                "ms-vscode.cmake-tools"
+
+            ],
+            "settings": {}
+        }
+    }
+}

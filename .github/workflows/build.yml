@@ -1,0 +1,36 @@
+name: My Action
+on: [workflow_dispatch]
+jobs:
+
+  build_pkg_interface:
+    runs-on: arm
+    steps:
+      - name: bloom
+        run: | 
+          source /opt/ros/humble/setup.bash \
+          && cd src/pkg_interface \
+          && bloom-generate rosdebian 
+      - name: pwd
+        run: pwd
+      - name: fakeroot
+        run: |
+          cd src/pkg_interface \
+          && fakeroot debian/rules binary
+
+  build_pkg_server:
+    runs-on: arm
+    steps:
+      - name: rosdep
+        run: |
+          export ROS_DISTRO=humble \
+          && echo "yaml file://`pwd`/rosdep/custom_rosdep.yaml" > /etc/ros/rosdep/sources.list.d/30-custom.list \
+          && rosdep update 
+      - name: bloom
+        run: | 
+          source /opt/ros/humble/setup.bash \
+          && cd src/pkg_server \
+          && bloom-generate rosdebian 
+      - name: fakeroot
+        run: |
+          cd src/pkg_server \
+          && fakeroot debian/rules binary

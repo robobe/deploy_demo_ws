@@ -1,4 +1,8 @@
 {
+
+    // "docker.environment": {
+    //     "DOCKER_HOST": "ssh://user@10.0.0.4"
+    // },
     "python.analysis.extraPaths": [
         "${workspaceFolder}/",
         "${workspaceFolder}/install/pkg_interface/local/lib/python3.10/dist-packages/",

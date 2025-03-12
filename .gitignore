@@ -1,7 +1,6 @@
 build/
-log/
 install/
-*.pyc
-.obj-x86_64-linux-gnu/
-debian/
-*.deb
+log/
+**/debian/
+**/.obj-x86_64-linux-gnu/
+**/.obj-aarch64-linux-gnu/
