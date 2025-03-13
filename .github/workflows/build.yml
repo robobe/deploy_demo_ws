@@ -1,17 +1,24 @@
 name: My Action
 on: [workflow_dispatch]
 jobs:
+  test:
+    runs-on: arm
+    steps:
+      - name: Check user inside container
+        run: which bloom-generate
 
   build_pkg_interface:
     runs-on: arm
     steps:
+      - name: clean
+        run: |
+          rm -rf src/pkg_interface/debian \
+          && rm -rf src/pkg_interface/.obj-*-linux-gnu
       - name: bloom
         run: | 
           source /opt/ros/humble/setup.bash \
           && cd src/pkg_interface \
           && bloom-generate rosdebian 
-      - name: pwd
-        run: pwd
       - name: fakeroot
         run: |
           cd src/pkg_interface \
@@ -22,15 +29,39 @@ jobs:
     steps:
       - name: rosdep
         run: |
-          export ROS_DISTRO=humble \
+          export ROSDISTRO_INDEX_URL=file://`pwd`/index-v4.yaml \
+          && export ROS_DISTRO=humble \
+          && echo "yaml file://`pwd`/rosdep/base.yaml" > /etc/ros/rosdep/sources.list.d/20-default.list \
+          && echo "yaml file://`pwd`/rosdep/python.yaml" >> /etc/ros/rosdep/sources.list.d/20-default.list \
           && echo "yaml file://`pwd`/rosdep/custom_rosdep.yaml" > /etc/ros/rosdep/sources.list.d/30-custom.list \
-          && rosdep update 
+          && rosdep update --rosdistro humble
       - name: bloom
         run: | 
+          export ROSDISTRO_INDEX_URL=file://`pwd`/index-v4.yaml
           source /opt/ros/humble/setup.bash \
           && cd src/pkg_server \
           && bloom-generate rosdebian 
       - name: fakeroot
         run: |
           cd src/pkg_server \
+          && fakeroot debian/rules binary
+
+  build_pkg_client:
+    runs-on: arm
+    steps:
+      - name: clean
+        run: |
+          rm -rf src/pkg_client/debian \
+          && rm -rf src/pkg_client/.obj-*-linux-gnu
+      - name: rosdep
+        run: |
+          export ROS_DISTRO=humble \
+          && echo "yaml file://`pwd`/rosdep/custom_rosdep.yaml" > /etc/ros/rosdep/sources.list.d/30-custom.list \
+          && cat /etc/ros/rosdep/sources.list.d/30-custom.list \
+          && rosdep update --rosdistro humble
+      - name: bloom
+        run: source /opt/ros/humble/setup.bash && cd src/pkg_client && bloom-generate rosdebian 
+      - name: fakeroot
+        run: |
+          cd src/pkg_client \
           && fakeroot debian/rules binary

@@ -5,4 +5,3 @@ pkg_server:
 pkg_interface:
   ubuntu:
     apt: ros-humble-pkg-interface
-# sudo sh -c 'echo "yaml file:///home/user/workspaces/ros_py/custom_rosdep.yaml" > /etc/ros/rosdep/sources.list.d/30-custom.list'

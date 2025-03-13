@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+        {
+            "label": "bloom",
+            "type": "shell",
+            "command": "ROSDISTRO_INDEX_URL=file:///home/user/workspaces/deploy_demo_ws/index-v4.yaml bloom-generate rosdebian --os-name ubuntu --os-version jammy --ros-distro humble",
+            "options": {
+                "cwd": "/home/user/workspaces/deploy_demo_ws/src/pkg_interface"
+            },
+            // "dependsOn": "set_offline"
+        },
+        {
+            "label": "fakeroot",
+            "type": "shell",
+            "command": "fakeroot debian/rules binary",
+            "options": {
+                "cwd": "/home/user/workspaces/deploy_demo_ws/src/pkg_interface"
+            },
+        },
+    ]
+}

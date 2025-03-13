@@ -9,16 +9,23 @@ act -j build_pkg_interface -P arm=humble/arm:latest \
 
 ### pkg_server
 ```bash
-act -j build_pkg_server -P arm=gst_stream/arm:runtime \
-    --pull=false \
-    --bind --directory . \
-    --volume $(pwd)/../pkg_interface:/etc/ros/rosdep/sources.list.d/
-```
-
-<!-- 
-### parameters_manager_ex
-```bash
-act -j build_parameters_manager_ex -P arm=gst_stream/arm:runtime \
+act -j build_pkg_server -P arm=humble/arm:latest \
     --pull=false \
     --bind --directory . 
-``` -->
+```
+
+### pkg_client
+```bash
+act -j build_pkg_client -P arm=humble/arm:latest \
+    --pull=false \
+    --bind --directory . 
+```
+
+### test
+```bash
+act -j test -P arm=humble/arm:latest \
+    --pull=false \
+    --userns=host \
+    --privileged=false \
+    --bind --directory . 
+```
