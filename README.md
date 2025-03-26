@@ -10,7 +10,7 @@ colcon build --packages-select pkg_interface \
 
 ```
 export ROSDISTRO_INDEX_URL=file:///home/user/workspaces/deploy_demo_ws/index-v4.yaml
-bloom-generate rosdebian
+bloom-generate rosdebian  --ros-distro humble
 fakeroot debian/rules binary
 
 ```
