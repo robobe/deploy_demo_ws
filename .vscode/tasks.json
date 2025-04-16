@@ -19,5 +19,13 @@
                 "cwd": "/home/user/workspaces/deploy_demo_ws/src/pkg_interface"
             },
         },
+        {
+            "label": "act",
+            "type": "shell",
+            "command": ["./bin/act -j build_pc_pkg_interface -P pc=humble:dev",
+                        "--pull=false",
+                        "--bind --directory",
+                        "."]
+        },
     ]
 }

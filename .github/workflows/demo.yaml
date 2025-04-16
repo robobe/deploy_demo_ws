@@ -1,0 +1,12 @@
+name: demos
+on: [workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: call action that return output
+        id: call_action
+        uses: ./.github/actions/action_output
+      - name: use the output
+        run: 'echo "print output value: ${{ steps.call_action.outputs.my_output }} "'
+        shell: bash

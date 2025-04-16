@@ -1,0 +1,12 @@
+name: "my output demo"
+description: "return output from action"
+outputs:
+  my_output:
+    description: "my output"
+    value: ""
+runs:
+  using: "composite"
+  steps:
+    - name: calc output
+      run: echo "my_output=my output value from sub action" >> $GITHUB_OUTPUT
+      shell: bash

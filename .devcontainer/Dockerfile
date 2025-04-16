@@ -1,4 +1,4 @@
-FROM humble:ver1
+FROM humble:dev
 
 ARG VERSION=0.0.1
 
@@ -34,6 +34,7 @@ COPY .devcontainer/.tmux.conf /home/user/.tmux.conf
 ENV DEBIAN_FRONTEND=dialog
 
 USER user
+RUN curl https://raw.githubusercontent.com/nektos/act/master/install.sh | bash
 
 #
 RUN echo "export PS1='🐳  \[\033[1;36m\]\h \[\033[1;34m\]\W\[\033[0;35m\] \[\033[1;36m\]# \[\033[0m\]'" >> /home/user/.bashrc

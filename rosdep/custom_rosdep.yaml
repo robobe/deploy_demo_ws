@@ -5,3 +5,7 @@ pkg_server:
 pkg_interface:
   ubuntu:
     apt: ros-humble-pkg-interface
+
+basic_interface:
+  ubuntu:
+    apt: ros-humble-basic-interface

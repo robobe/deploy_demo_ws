@@ -1,0 +1,19 @@
+name: "my Action with args"
+description: "My Action"
+inputs:
+  arg1:
+    description: "arg1"
+    required: true
+  arg2:
+    description: "arg2"
+    required: false
+    default: 'default value 2'
+runs:
+  using: "composite"
+  steps:
+    - name: sub
+      run: 'echo "print arg1 value: ${{ inputs.arg1 }} "'
+      shell: bash
+    - name: print arg2
+      run: 'echo "print arg2 value: ${{ inputs.arg2 }} "'
+      shell: bash

@@ -33,3 +33,21 @@ act -j test -P arm=humble/arm:dev \
     --privileged=false \
     --bind --directory . 
 ```
+
+---
+
+## PC
+
+### pkg_interface
+```bash
+act -j build_pc_pkg_interface -P pc=humble:dev \
+    --pull=false \
+    --bind --directory . 
+```
+
+### pkg_interface
+```bash
+act -j build_pc_pkg_interface_ng -P pc=humble:dev \
+    --pull=false \
+    --bind --directory . 
+```
